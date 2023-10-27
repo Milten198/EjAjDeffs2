@@ -9,11 +9,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
-public class RestTemplateHelper {
+public class TaskHelper {
 
     static RestTemplate restTemplate = new RestTemplate();
 
-    public static String postAnswer(String answer, String token) {
+    public static String postAnswer(Object answer, String token) {
         String url = "https://zadania.aidevs.pl/answer/" + token;
 
         // Create payload

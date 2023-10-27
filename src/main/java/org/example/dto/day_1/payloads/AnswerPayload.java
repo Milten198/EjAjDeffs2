@@ -7,9 +7,9 @@ import lombok.Setter;
 @Setter
 public class AnswerPayload {
 
-    private String answer;
+    private Object answer;
 
-    public AnswerPayload(String answer) {
+    public AnswerPayload(Object answer) {
         this.answer = answer;
     }
 }
