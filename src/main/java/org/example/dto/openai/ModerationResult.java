@@ -1,4 +1,4 @@
-package org.example.dto.day_4;
+package org.example.dto.openai;
 
 import lombok.Getter;
 import lombok.Setter;
