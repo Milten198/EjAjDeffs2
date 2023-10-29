@@ -3,7 +3,7 @@ package org.example.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.dto.day_1.Cookie;
-import org.example.dto.day_1.Token;
+import org.example.dto.common.Token;
 
 public class ObjectMappers {
 

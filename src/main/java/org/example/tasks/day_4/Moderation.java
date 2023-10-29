@@ -2,7 +2,7 @@ package org.example.tasks.day_4;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.dto.day_1.Token;
+import org.example.dto.common.Token;
 import org.example.dto.openai.ModerationResponse;
 import org.example.dto.day_4.ModerationTask;
 import org.example.utils.OpenAIHelper;

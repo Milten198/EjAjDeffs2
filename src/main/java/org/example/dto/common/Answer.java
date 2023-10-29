@@ -1,4 +1,4 @@
-package org.example.dto.day_1;
+package org.example.dto.common;
 
 import lombok.Getter;
 import lombok.Setter;

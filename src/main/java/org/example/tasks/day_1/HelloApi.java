@@ -2,7 +2,7 @@ package org.example.tasks.day_1;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.example.dto.day_1.Cookie;
-import org.example.dto.day_1.Token;
+import org.example.dto.common.Token;
 import org.example.utils.ObjectMappers;
 import org.example.utils.TaskHelper;
 

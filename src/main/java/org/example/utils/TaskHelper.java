@@ -1,9 +1,9 @@
 package org.example.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.example.dto.day_1.Token;
-import org.example.dto.day_1.payloads.ApiKeyPayload;
-import org.example.dto.day_1.payloads.AnswerPayload;
+import org.example.dto.common.Token;
+import org.example.dto.common.ApiKeyPayload;
+import org.example.dto.common.AnswerPayload;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
