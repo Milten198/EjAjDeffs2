@@ -1,9 +1,11 @@
 package org.example.utils;
 
-import org.example.dto.openai.ChatCompletionMessage;
-import org.example.dto.openai.ChatCompletionRequest;
-import org.example.dto.openai.ChatCompletionResponse;
-import org.example.dto.openai.ModerationResponse;
+import org.example.dto.openai.chatCompletion.ChatCompletionMessage;
+import org.example.dto.openai.chatCompletion.ChatCompletionRequest;
+import org.example.dto.openai.chatCompletion.ChatCompletionResponse;
+import org.example.dto.openai.embedding.EmbeddingRequest;
+import org.example.dto.openai.embedding.EmbeddingResponse;
+import org.example.dto.openai.moderation.ModerationResponse;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -65,5 +67,27 @@ public class OpenAIHelper {
                 ChatCompletionResponse.class
         );
         return response.getBody();
+    }
+
+    public static EmbeddingResponse embedding(String text, String model) {
+        String url = "https://api.openai.com/v1/embeddings";
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        headers.add("Authorization", "Bearer " + BearerToken.OPENAI_API_KEY);
+
+        EmbeddingRequest embeddingRequest = new EmbeddingRequest(text, model);
+
+        HttpEntity<EmbeddingRequest> entity = new HttpEntity<>(embeddingRequest, headers);
+
+        ResponseEntity<EmbeddingResponse> response = restTemplate.exchange(
+                url,
+                HttpMethod.POST,
+                entity,
+                EmbeddingResponse.class
+        );
+        return response.getBody();
+
     }
 }

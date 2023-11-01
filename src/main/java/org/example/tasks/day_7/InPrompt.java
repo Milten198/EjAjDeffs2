@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.dto.common.Token;
 import org.example.dto.day_7.InPromptTask;
-import org.example.dto.openai.ChatCompletionResponse;
+import org.example.dto.openai.chatCompletion.ChatCompletionResponse;
 import org.example.utils.OpenAIHelper;
 import org.example.utils.TaskHelper;
 

@@ -1,4 +1,4 @@
-package org.example.dto.openai;
+package org.example.dto.openai.chatCompletion;
 
 import lombok.Getter;
 import lombok.Setter;
