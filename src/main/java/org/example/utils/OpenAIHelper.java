@@ -6,12 +6,18 @@ import org.example.dto.openai.chatCompletion.ChatCompletionResponse;
 import org.example.dto.openai.embedding.EmbeddingRequest;
 import org.example.dto.openai.embedding.EmbeddingResponse;
 import org.example.dto.openai.moderation.ModerationResponse;
+import org.example.dto.openai.whisper.WhisperResponse;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,6 +94,29 @@ public class OpenAIHelper {
                 EmbeddingResponse.class
         );
         return response.getBody();
+    }
 
+    public static WhisperResponse whisper(String file, String model) throws IOException {
+        String url = "https://api.openai.com/v1/audio/transcriptions";
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "multipart/form-data");
+        headers.add("Authorization", "Bearer " + BearerToken.OPENAI_API_KEY);
+
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        body.add("model", model);
+
+        ClassPathResource resource = new ClassPathResource(file);
+
+        FileSystemResource fileSystemResource = new FileSystemResource(resource.getFile());
+        body.add("file", fileSystemResource);
+
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+
+        ResponseEntity<WhisperResponse> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, WhisperResponse.class);
+
+        System.out.println(response.getBody());
+        return response.getBody();
     }
 }

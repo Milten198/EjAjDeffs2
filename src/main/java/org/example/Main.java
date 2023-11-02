@@ -1,11 +1,12 @@
 package org.example;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.example.tasks.day_8.Embedding;
+import org.example.tasks.day_9.Whisper;
+
+import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args) throws JsonProcessingException {
-        Embedding.solveEmbeddingApiTask();
+    public static void main(String[] args) throws IOException {
+        Whisper.solveWhisperApiTask();
     }
 }
