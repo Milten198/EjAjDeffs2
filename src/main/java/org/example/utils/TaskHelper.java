@@ -54,6 +54,7 @@ public class TaskHelper {
         // POST the Java object
         return restTemplate.postForObject(url, entity, String.class);
     }
+
     public static Token getToken(String taskName) throws JsonProcessingException {
         String url = "https://zadania.aidevs.pl/token/" + taskName;
 

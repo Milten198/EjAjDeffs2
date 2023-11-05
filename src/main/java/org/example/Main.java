@@ -1,12 +1,12 @@
 package org.example;
 
-import org.example.tasks.day_9.Whisper;
+import org.example.tasks.day_10.Functions;
 
 import java.io.IOException;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Whisper.solveWhisperApiTask();
+        Functions.solveFunctionsApiTask();
     }
 }
