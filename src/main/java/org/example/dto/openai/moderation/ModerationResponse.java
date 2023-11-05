@@ -1,4 +1,4 @@
-package org.example.dto.openai;
+package org.example.dto.openai.moderation;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,13 +1,12 @@
-package org.example.dto.openai;
+package org.example.dto.openai.embedding;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ChatCompletionUsage {
+public class EmbeddingUsage {
 
     private int prompt_tokens;
-    private int completion_tokens;
     private int total_tokens;
 }
