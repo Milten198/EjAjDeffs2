@@ -1,10 +1,10 @@
 package org.example;
 
-import org.example.tasks.day_16.Knowledge;
+import org.example.tasks.day_17.Tools;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Knowledge.solveKnowledgeApiTask();
+        Tools.solveToolsApiTask();
     }
 }
