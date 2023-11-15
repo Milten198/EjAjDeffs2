@@ -6,20 +6,21 @@ import org.example.dto.openai.chatCompletion.ChatCompletionResponse;
 import org.example.dto.openai.embedding.EmbeddingRequest;
 import org.example.dto.openai.embedding.EmbeddingResponse;
 import org.example.dto.openai.moderation.ModerationResponse;
+import org.example.dto.openai.vision.request.Content;
+import org.example.dto.openai.vision.request.ImageUrl;
+import org.example.dto.openai.vision.request.Message;
+import org.example.dto.openai.vision.request.VisionRequest;
+import org.example.dto.openai.vision.response.VisionResponse;
 import org.example.dto.openai.whisper.WhisperResponse;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class OpenAIHelper {
 
@@ -118,5 +119,73 @@ public class OpenAIHelper {
 
         System.out.println(response.getBody());
         return response.getBody();
+    }
+
+    public static VisionResponse vision(String text, String urlToImage) {
+        final String url = "https://api.openai.com/v1/chat/completions";
+        final String apiKey = BearerToken.OPENAI_API_KEY; // Replace with your OpenAI API key
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer " + apiKey);
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("model", "gpt-4-vision-preview");
+
+        List<Map<String, Object>> messages = new ArrayList<>();
+        Map<String, Object> userMessage = new HashMap<>();
+        userMessage.put("role", "user");
+
+        List<Map<String, Object>> content = new ArrayList<>();
+
+        Map<String, Object> textContent = new HashMap<>();
+        textContent.put("type", "text");
+        textContent.put("text", text);
+        content.add(textContent);
+
+        Map<String, Object> imageUrlContent = new HashMap<>();
+        imageUrlContent.put("type", "image_url");
+
+        Map<String, String> imageUrl = new HashMap<>();
+        imageUrl.put("url", urlToImage);
+        imageUrlContent.put("image_url", imageUrl);
+
+        content.add(imageUrlContent);
+
+        userMessage.put("content", content);
+        messages.add(userMessage);
+
+        body.put("messages", messages);
+        body.put("max_tokens", 300);
+
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
+
+        ResponseEntity<VisionResponse> response = restTemplate.postForEntity(url, entity, VisionResponse.class);
+
+        return response.getBody();
+    }
+
+//    TODO use this method to create request for vision()
+    private static VisionRequest createVisionRequest(String text, String urlToImage) {
+        VisionRequest visionRequest = new VisionRequest();
+        visionRequest.setMaxTokens(300);
+        visionRequest.setModel("gpt-4-vision-preview");
+
+        Message message = new Message();
+        message.setRole("user");
+        Content contentText = new Content();
+        contentText.setType("text");
+        contentText.setText(text);
+
+        Content contentImage = new Content();
+        contentImage.setType("image_url");
+        ImageUrl imageUrl = new ImageUrl();
+        imageUrl.setUrl(urlToImage);
+        contentImage.setImage_url(imageUrl);
+        message.setContent(Arrays.asList(contentText, contentImage));
+
+        visionRequest.setMessages(List.of(message));
+        return visionRequest;
     }
 }
